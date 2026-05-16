@@ -69,13 +69,15 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const handleMouse = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
+    const handleMouse = (e) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', handleMouse);
     return () => window.removeEventListener('mousemove', handleMouse);
   }, []);
 
   const keywords = [
-    'E-Commerce',
+    '.NET 솔루션',
+    'B2B 솔루션',
+    'B2C 서비스',
     'API 설계',
     '데이터 정합성',
     '대량 처리',
@@ -205,7 +207,7 @@ export default function Home() {
               7 years
             </span>
             <span className="px-3 py-1 text-xs border border-zinc-800 rounded-full text-zinc-400 bg-zinc-900/50">
-              E-Commerce
+              Solution · Commerce
             </span>
           </div>
 
@@ -244,12 +246,13 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-zinc-300 leading-relaxed">
                 <p>
-                  <span className="text-emerald-400">B2C 커머스 플랫폼</span>과 
-                  {' '}<span className="text-emerald-400">B2B 운영 시스템</span>을 
-                  함께 경험한 .NET 백엔드 개발자입니다.
+                  <span className="text-emerald-400">B2B 솔루션</span>과 
+                  {' '}<span className="text-emerald-400">B2C 커머스 서비스</span>를 
+                  모두 경험한 .NET 백엔드 개발자입니다.
                 </p>
                 <p>
-                  판매자 대상 오픈마켓 통합 관리 시스템과 사용자 대상 커머스 서비스를 개발하며,
+                  판매자 대상 통합 관리 솔루션부터 사용자 대상 커머스 서비스까지,
+                  다양한 도메인의 .NET 기반 시스템을 개발하며
                   <span className="text-zinc-100"> API 중심 구조</span>와 
                   <span className="text-zinc-100"> 데이터 정합성</span>을 고려한 설계를 수행해왔습니다.
                 </p>
