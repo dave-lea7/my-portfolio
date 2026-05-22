@@ -35,19 +35,51 @@ export default function Home() {
   const [time, setTime] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   
-  const fullText = "Improving stability, scalability, and data consistency in real-world production systems.";
+  const phrases = [
+    "Improving stability, scalability, and data consistency in real-world production systems.",
+    "운영 환경의 안정성과 데이터 정합성을 개선해온 .NET 백엔드 개발자입니다.",
+    "Redis, MSA, and large-scale order processing in production.",
+    "대량 주문 처리와 구조 개선으로 운영을 안정화합니다."
+  ];
   
   useEffect(() => {
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i <= fullText.length) {
-        setTypedText(fullText.slice(0, i));
-        i++;
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const current = phrases[phraseIndex];
+
+      if (!deleting) {
+        // 타이핑 중
+        charIndex++;
+        setTypedText(current.slice(0, charIndex));
+        if (charIndex === current.length) {
+          // 다 쳤으면 잠시 멈췄다가 삭제 시작
+          deleting = true;
+          timeoutId = setTimeout(tick, 2000);
+          return;
+        }
+        timeoutId = setTimeout(tick, 65);
       } else {
-        clearInterval(timer);
+        // 삭제 중
+        charIndex--;
+        setTypedText(current.slice(0, charIndex));
+        if (charIndex === 0) {
+          // 다 지웠으면 다음 문장으로
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          timeoutId = setTimeout(tick, 400);
+          return;
+        }
+        timeoutId = setTimeout(tick, 30);
       }
-    }, 70);
-    return () => clearInterval(timer);
+    };
+
+    timeoutId = setTimeout(tick, 500);
+    return () => clearTimeout(timeoutId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -263,7 +295,7 @@ export default function Home() {
             E-Commerce Platform &amp; Solution Engineer
           </p>
           
-          <p className="text-lg md:text-xl text-zinc-400 mb-8 font-light max-w-3xl leading-relaxed border-l-2 border-emerald-400/50 pl-4">
+          <p className="text-lg md:text-xl text-zinc-400 mb-8 font-light max-w-3xl leading-relaxed border-l-2 border-emerald-400/50 pl-4 min-h-[3.5rem] sm:min-h-[3rem]">
             {typedText}
             <span className={`inline-block w-2.5 h-6 bg-emerald-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
           </p>
