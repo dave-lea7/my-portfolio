@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server } from 'lucide-react';
+import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles } from 'lucide-react';
 
 // GitHub & LinkedIn 아이콘 (lucide-react 최신 버전에서 제거되어 직접 정의)
 const Github = ({ size = 24 }: { size?: number }) => (
@@ -142,6 +142,21 @@ export default function Home() {
     { name: 'MSA / 도메인 설계', level: 80 },
     { name: 'AWS / Docker', level: 72 },
     { name: 'Node.js / TypeScript', level: 65 }
+  ];
+
+  const aiTools = [
+    {
+      name: 'GitHub Copilot',
+      use: '반복 코드 자동 완성 및 보일러플레이트 생성으로 개발 속도 향상'
+    },
+    {
+      name: 'Claude',
+      use: '레거시 코드 분석 및 리팩토링 설계, 복잡한 로직 구조화 보조'
+    },
+    {
+      name: 'GPT',
+      use: '코드 리뷰 보조, 문서화, 반복 작업 자동화로 코드 품질 개선'
+    }
   ];
 
   return (
@@ -463,6 +478,37 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* AI TOOLS */}
+        <section className="mb-32">
+          <div className="text-zinc-500 text-sm mb-4">
+            <span className="text-emerald-400">$</span> ai --augment-workflow
+          </div>
+          
+          <h2 className="text-3xl font-bold mb-3 flex items-center gap-3">
+            <Sparkles className="text-emerald-400" size={28} />
+            AI-Assisted Development
+          </h2>
+          <p className="text-zinc-400 mb-8 max-w-2xl text-sm leading-relaxed">
+            AI 개발 도구를 실무에 적극 활용하여 레거시 코드 분석, 반복 작업 자동화,
+            코드 리뷰 보조를 통해 개발 생산성과 코드 품질을 함께 높이고 있습니다.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            {aiTools.map((tool) => (
+              <div 
+                key={tool.name}
+                className="border border-zinc-800 rounded-lg p-5 bg-zinc-900/30 backdrop-blur-sm hover:border-emerald-400/30 transition-all"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-emerald-400">◆</span>
+                  <h3 className="text-base font-bold text-zinc-100">{tool.name}</h3>
+                </div>
+                <p className="text-sm text-zinc-400 leading-relaxed">{tool.use}</p>
+              </div>
+            ))}
           </div>
         </section>
 
