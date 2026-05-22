@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles } from 'lucide-react';
+import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles, Target } from 'lucide-react';
 
 // GitHub & LinkedIn 아이콘 (lucide-react 최신 버전에서 제거되어 직접 정의)
 const Github = ({ size = 24 }: { size?: number }) => (
@@ -35,7 +35,7 @@ export default function Home() {
   const [time, setTime] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   
-  const fullText = "building reliable systems at scale.";
+  const fullText = "Improving stability, scalability, and data consistency in real-world production systems.";
   
   useEffect(() => {
     let i = 0;
@@ -91,38 +91,28 @@ export default function Home() {
       period: '2023.02 — 2025.09',
       company: '그린앤그레이',
       role: '플랫폼 개발팀 · 사원',
-      summary: 'API 서버 및 챗봇 개발·운영',
+      summary: '버티컬 커머스 플랫폼 API 서버 및 챗봇 개발·운영',
       projects: [
-        '감별마켓(대상그룹) — MSA 도메인 API 4종 설계·운영 (가입자 10만+, 입점 100개+)',
+        '감별마켓(대상그룹) — MSA 도메인 API 4종 설계·운영 · 가입자 10만+ / 입점 100개+',
         'Cellook 패션 커머스 — Display / Admin API 개발·운영',
         '카카오 모빌리티 챗봇 — 8개 채널 시나리오 개발 및 내재화 지원'
       ],
-      highlights: [
-        '카페24 Open API rate limit 문제를 Redis + Lua 스크립트 atomic 카운터로 해결, 호출 실패 제거',
-        'MSA 기반 운영·계정·전시·알림 도메인 분리 + 공통 로직 라이브러리화로 서비스 일관성 확보',
-        '추천 상품·인증 토큰에 Redis 캐싱 도입으로 응답 속도 개선 및 DB 부하 감소'
-      ],
       stack: {
-        main: ['C# (.NET Core 6.0)', 'MySQL'],
+        main: ['C# (.NET Core 6.0)', 'MySQL', 'Redis'],
         sub: ['Node.js', 'TypeScript'],
-        infra: ['AWS', 'Amazon Aurora', 'Redis', 'Docker', 'Jenkins', 'Argo CD', 'GitHub Actions'],
-        tools: ['GitHub', 'GitLab', 'Jira', 'Confluence', 'Datadog', 'Elasticsearch', 'Grafana']
+        infra: ['AWS', 'Docker', 'Jenkins', 'Argo CD', 'GitHub Actions'],
+        tools: ['Datadog', 'Elasticsearch', 'Grafana', 'Jira', 'Confluence']
       }
     },
     {
       period: '2016.12 — 2021.07',
       company: '가비아씨엔에스',
       role: 'IMS 개발팀 · 연구원',
-      summary: '판매자 통합관리 솔루션 "주머니" 개발 및 유지보수',
+      summary: '판매자 통합관리 솔루션 "주머니" 개발 및 유지보수 (WinForms)',
       projects: [
-        '전국 셀러 대상 다수 오픈마켓 주문·상품·송장 통합 관리 솔루션 (WinForms)',
-        '신규 마켓 다수 연동 (고도몰5, ESM 2.0, 위메프, Lotte ON, T-Mon 등)',
+        '전국 셀러 대상 다수 오픈마켓 주문·상품·송장 통합 관리',
+        '신규 마켓 다수 연동 (고도몰5, ESM 2.0, 위메프, Lotte ON 등)',
         '클라이언트 동시접속 제한 및 외부 연동용 REST API 신규 구축'
-      ],
-      highlights: [
-        '11번가 주문수집 모듈을 HTML 파싱 → JSON API로 전면 재설계, 사이트 변경 장애 빈도 감소',
-        '카페24 주문 수집을 크롤링 → 공식 Open API로 전환, 차단 리스크 제거 및 정확도 향상',
-        '솔루션 .NET Framework 2.0 → 4.6 업그레이드, async/await 등 신규 기능 활용 환경 마련'
       ],
       stack: {
         main: ['C# (.NET 2.0 / 4.6)', 'MS-SQL'],
@@ -133,15 +123,62 @@ export default function Home() {
     }
   ];
 
-  const skills = [
-    { name: 'C# / .NET', level: 95 },
-    { name: '.NET Core', level: 90 },
-    { name: 'MS-SQL / MySQL', level: 90 },
-    { name: 'REST API 설계', level: 92 },
-    { name: 'Redis / 캐싱 전략', level: 82 },
-    { name: 'MSA / 도메인 설계', level: 80 },
-    { name: 'AWS / Docker', level: 72 },
-    { name: 'Node.js / TypeScript', level: 65 }
+  const keyProjects = [
+    {
+      title: '카페24 Open API Rate Limit 안정화',
+      project: '감별마켓 · 입점 마켓 연동',
+      tags: ['Redis', 'Lua Script', 'Atomic Counter'],
+      situation: '입점 마켓 100여 개 상품을 카페24 기반으로 연동하는 구조로 전환',
+      trouble: 'API 호출량이 카페24 limit 정책에 근접해 호출 실패 발생, 데이터 동기화 지연',
+      action: 'Redis + Lua 스크립트로 atomic 호출 카운터와 delay 로직을 구현해 분산 환경에서도 원자적으로 호출량 제어',
+      result: ['Rate limit 초과 호출 실패 제거', '데이터 동기화 안정화', '외부 연동 운영 부담 감소']
+    },
+    {
+      title: 'MSA 기반 도메인 API 분리 운영',
+      project: '감별마켓 · 아키텍처 설계',
+      tags: ['MSA', 'Domain Separation', 'Common Library', 'NuGet'],
+      situation: '가입자 10만+ 규모의 식품 버티컬 커머스 신규 구축',
+      trouble: '기능 중심 구성으로 서비스 간 결합도가 높아 유지보수와 독립 배포가 어려운 구조',
+      action: '운영·계정·전시·알림 4개 도메인 API를 분리하고, 공통 정책·코드를 common-service-library로 추출해 GitHub Actions NuGet 자동 배포로 버전 관리',
+      result: ['서비스 간 결합도 감소', '도메인별 독립 배포 확보', '공통 로직 일관성 유지']
+    },
+    {
+      title: 'Redis 캐싱 기반 조회 성능 개선',
+      project: '감별마켓 · 성능 최적화',
+      tags: ['Redis', 'Caching', '개인화 추천'],
+      situation: '대량 트래픽 환경에서 추천 상품 조회와 사용자 인증이 빈번하게 발생',
+      trouble: '추천 상품·인증 토큰 조회가 매번 DB를 거치며 응답 지연과 DB 부하 유발',
+      action: '추천 상품 데이터와 인증 토큰(access/refresh)에 Redis 캐싱을 도입하고, 찜·연령·관심분야 기반 개인화 추천 로직과 결합',
+      result: ['핵심 조회 API 응답 속도 개선', 'DB 부하 감소', '개인화 추천으로 사용자 전환율 향상']
+    },
+    {
+      title: '11번가 주문수집 모듈 재설계',
+      project: '가비아 주머니 · 안정화',
+      tags: ['REST API', 'JSON', '레거시 개선'],
+      situation: '다수 오픈마켓 주문을 수집·통합 관리하는 솔루션 운영',
+      trouble: 'HTML 파싱 방식의 주문 수집이 11번가 사이트 구조 변경 시마다 장애 발생, 운영 부담 가중',
+      action: 'HTML 파싱 구조를 JSON 기반 API 호출 방식으로 전면 재설계해 사이트 변경에 영향받지 않는 구조로 전환',
+      result: ['사이트 구조 변경 장애 빈도 감소', '데이터 파싱 안정성 향상', '운영 유지보수 비용 절감']
+    }
+  ];
+
+  const skillGroups = [
+    {
+      category: 'Backend',
+      items: ['C#', '.NET Core', 'REST API', 'Redis', 'MySQL', 'MS-SQL']
+    },
+    {
+      category: 'Architecture',
+      items: ['MSA', 'Domain Separation', 'Common Library', '데이터 정합성']
+    },
+    {
+      category: 'Infra / DevOps',
+      items: ['AWS', 'Docker', 'Jenkins', 'Argo CD', 'GitHub Actions']
+    },
+    {
+      category: 'Monitoring',
+      items: ['Datadog', 'Elasticsearch', 'Grafana']
+    }
   ];
 
   const aiTools = [
@@ -213,31 +250,55 @@ export default function Home() {
             <span className="text-emerald-400">$</span> whoami
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-4 leading-[1.05]">
-            <span className="text-zinc-100">Lee</span>
-            <span className="text-emerald-400">KeunHo</span>
-            <span className="text-zinc-500">.dev</span>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-3 leading-[1.05]">
+            <span className="text-zinc-100">KeunHo</span>{' '}
+            <span className="text-emerald-400">Lee</span>
           </h1>
-          <p className="text-lg text-zinc-500 mb-8">이근호</p>
+          <p className="text-lg text-zinc-500 mb-1">이근호</p>
+
+          <p className="text-xl md:text-2xl text-zinc-200 font-semibold mt-6">
+            .NET Backend Developer
+          </p>
+          <p className="text-base md:text-lg text-zinc-400 mb-6">
+            E-Commerce Platform &amp; Solution Engineer
+          </p>
           
-          <p className="text-2xl md:text-3xl text-zinc-400 mb-8 font-light">
+          <p className="text-lg md:text-xl text-zinc-400 mb-8 font-light max-w-3xl leading-relaxed border-l-2 border-emerald-400/50 pl-4">
             {typedText}
-            <span className={`inline-block w-3 h-7 bg-emerald-400 ml-1 ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
+            <span className={`inline-block w-2.5 h-6 bg-emerald-400 ml-1 align-middle ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
           </p>
 
-          <div className="flex flex-wrap gap-3 mb-12">
+          <div className="flex flex-wrap gap-3 mb-10">
             <span className="px-3 py-1 text-xs border border-zinc-800 rounded-full text-zinc-400 bg-zinc-900/50">
-              <span className="text-emerald-400">●</span> .NET Backend Developer
+              <span className="text-emerald-400">●</span> 7 years
             </span>
             <span className="px-3 py-1 text-xs border border-zinc-800 rounded-full text-zinc-400 bg-zinc-900/50">
               📍 Incheon, KR
             </span>
             <span className="px-3 py-1 text-xs border border-zinc-800 rounded-full text-zinc-400 bg-zinc-900/50">
-              7 years
+              E-Commerce
             </span>
             <span className="px-3 py-1 text-xs border border-zinc-800 rounded-full text-zinc-400 bg-zinc-900/50">
-              Solution · Commerce
+              B2B Solution
             </span>
+          </div>
+
+          {/* 핵심 역량 — 면접관이 5초 안에 보는 부분 */}
+          <div className="grid sm:grid-cols-2 gap-3 mb-10 max-w-3xl">
+            {[
+              'Redis Lua 기반 API Rate Limit 제어',
+              'MSA 기반 도메인 API 분리 운영',
+              '대량 주문 처리 구조 개선 및 데이터 정합성 확보',
+              'AWS / Jenkins / Argo CD 운영 경험'
+            ].map((item, i) => (
+              <div 
+                key={i}
+                className="flex items-start gap-2.5 text-sm text-zinc-300 border border-zinc-800 rounded-lg px-4 py-3 bg-zinc-900/30 hover:border-emerald-400/30 transition-all"
+              >
+                <span className="text-emerald-400 mt-0.5 flex-shrink-0">▹</span>
+                <span>{item}</span>
+              </div>
+            ))}
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -352,18 +413,90 @@ export default function Home() {
             Stack
           </h2>
 
-          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-5">
-            {skills.map((skill, i) => (
-              <div key={skill.name} className="group">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-zinc-300">{skill.name}</span>
-                  <span className="text-zinc-500 text-xs">{skill.level}%</span>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {skillGroups.map((group) => (
+              <div 
+                key={group.category}
+                className="border border-zinc-800 rounded-lg p-5 bg-zinc-900/30 backdrop-blur-sm hover:border-emerald-400/30 transition-all"
+              >
+                <div className="text-xs text-emerald-400/80 mb-3 font-semibold uppercase tracking-wider">
+                  {group.category}
                 </div>
-                <div className="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-full transition-all duration-1000 ease-out"
-                    style={{ width: `${skill.level}%`, animationDelay: `${i * 100}ms` }}
-                  />
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span 
+                      key={item}
+                      className="text-sm px-3 py-1 bg-zinc-800/60 text-zinc-300 rounded border border-zinc-700/50"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* KEY PROJECTS */}
+        <section className="mb-32">
+          <div className="text-zinc-500 text-sm mb-4">
+            <span className="text-emerald-400">$</span> cat ./key-projects/*.md
+          </div>
+          
+          <h2 className="text-3xl font-bold mb-3 flex items-center gap-3">
+            <Target className="text-emerald-400" size={28} />
+            Key Projects
+          </h2>
+          <p className="text-zinc-400 mb-8 max-w-2xl text-sm leading-relaxed">
+            운영 환경에서 마주한 문제를 어떻게 분석하고 개선했는지,
+            상황 · 문제 · 해결 · 결과 중심으로 정리했습니다.
+          </p>
+
+          <div className="space-y-6">
+            {keyProjects.map((p, i) => (
+              <div 
+                key={i}
+                className="border border-zinc-800 rounded-lg overflow-hidden bg-zinc-900/30 backdrop-blur-sm hover:border-emerald-400/30 transition-all"
+              >
+                {/* 헤더 */}
+                <div className="border-b border-zinc-800 p-5 flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-zinc-100 mb-1">{p.title}</h3>
+                    <p className="text-xs text-zinc-500">{p.project}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.tags.map(t => (
+                      <span key={t} className="text-[11px] px-2 py-0.5 bg-emerald-400/10 text-emerald-300 rounded border border-emerald-400/20">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* STAR 본문 */}
+                <div className="p-5 space-y-4">
+                  <div className="grid sm:grid-cols-[80px_1fr] gap-1 sm:gap-3">
+                    <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider pt-0.5">Situation</div>
+                    <p className="text-sm text-zinc-400 leading-relaxed">{p.situation}</p>
+                  </div>
+                  <div className="grid sm:grid-cols-[80px_1fr] gap-1 sm:gap-3">
+                    <div className="text-xs font-semibold text-red-400/70 uppercase tracking-wider pt-0.5">Problem</div>
+                    <p className="text-sm text-zinc-300 leading-relaxed">{p.trouble}</p>
+                  </div>
+                  <div className="grid sm:grid-cols-[80px_1fr] gap-1 sm:gap-3">
+                    <div className="text-xs font-semibold text-blue-400/70 uppercase tracking-wider pt-0.5">Action</div>
+                    <p className="text-sm text-zinc-300 leading-relaxed">{p.action}</p>
+                  </div>
+                  <div className="grid sm:grid-cols-[80px_1fr] gap-1 sm:gap-3">
+                    <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider pt-0.5">Result</div>
+                    <div className="flex flex-wrap gap-2">
+                      {p.result.map((r, j) => (
+                        <span key={j} className="text-sm text-emerald-300 bg-emerald-400/5 border border-emerald-400/20 rounded px-2.5 py-1">
+                          ✓ {r}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
@@ -412,22 +545,6 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
-
-                    {exp.highlights && (
-                      <div className="mb-5 rounded-md border border-emerald-400/15 bg-emerald-400/5 p-4">
-                        <div className="text-xs text-emerald-400/80 mb-2 flex items-center gap-1.5">
-                          ★ key impact
-                        </div>
-                        <ul className="space-y-2">
-                          {exp.highlights.map((h, j) => (
-                            <li key={j} className="text-sm text-zinc-300 flex items-start gap-2 leading-relaxed">
-                              <span className="text-emerald-400 mt-0.5 flex-shrink-0">→</span>
-                              <span>{h}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
 
                     <div className="space-y-3">
                       <div>
