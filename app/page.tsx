@@ -35,7 +35,7 @@ export default function Home() {
   const [time, setTime] = useState('');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   
-  const fullText = "designing reliable commerce APIs.";
+  const fullText = "building reliable systems at scale.";
   
   useEffect(() => {
     let i = 0;
@@ -69,52 +69,64 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const handleMouse = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+    const handleMouse = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', handleMouse);
     return () => window.removeEventListener('mousemove', handleMouse);
   }, []);
 
   const keywords = [
-    '.NET 솔루션',
-    'B2B 솔루션',
-    'B2C 서비스',
-    'API 설계',
     '데이터 정합성',
-    '대량 처리',
+    '트랜잭션 처리',
+    '대량 주문 처리',
+    'Redis 캐싱',
+    'Rate Limiting',
+    'MSA 도메인 분리',
     '오픈마켓 연동',
-    '도메인 분리',
+    '운영 안정성',
     'Communication'
   ];
 
   const experiences = [
     {
       period: '2023.02 — 2025.09',
-      company: '버티컬 커머스 플랫폼',
-      role: 'Backend Developer',
+      company: '그린앤그레이',
+      role: '플랫폼 개발팀 · 사원',
+      summary: 'API 서버 및 챗봇 개발·운영',
       projects: [
-        '패션 커머스 cellook API 개발',
-        '음식 커머스 감별마켓(대상) API 개발',
-        '카카오 모빌리티 챗봇 유지보수 및 기능 추가'
+        '감별마켓(대상그룹) — MSA 도메인 API 4종 설계·운영 (가입자 10만+, 입점 100개+)',
+        'Cellook 패션 커머스 — Display / Admin API 개발·운영',
+        '카카오 모빌리티 챗봇 — 8개 채널 시나리오 개발 및 내재화 지원'
+      ],
+      highlights: [
+        '카페24 Open API rate limit 문제를 Redis + Lua 스크립트 atomic 카운터로 해결, 호출 실패 제거',
+        'MSA 기반 운영·계정·전시·알림 도메인 분리 + 공통 로직 라이브러리화로 서비스 일관성 확보',
+        '추천 상품·인증 토큰에 Redis 캐싱 도입으로 응답 속도 개선 및 DB 부하 감소'
       ],
       stack: {
         main: ['C# (.NET Core 6.0)', 'MySQL'],
         sub: ['Node.js', 'TypeScript'],
-        infra: ['Amazon Aurora', 'Redis', 'Docker', 'Jenkins', 'Argo CD'],
+        infra: ['AWS', 'Amazon Aurora', 'Redis', 'Docker', 'Jenkins', 'Argo CD', 'GitHub Actions'],
         tools: ['GitHub', 'GitLab', 'Jira', 'Confluence', 'Datadog', 'Elasticsearch', 'Grafana']
       }
     },
     {
       period: '2016.12 — 2021.07',
-      company: '가비아 C&S — 주머니',
-      role: 'Backend Developer',
+      company: '가비아씨엔에스',
+      role: 'IMS 개발팀 · 연구원',
+      summary: '판매자 통합관리 솔루션 "주머니" 개발 및 유지보수',
       projects: [
-        '판매자 통합관리 솔루션 유지보수 및 기능 추가',
-        '오픈마켓 연동 및 Web Crawling 개발',
-        'WCF SOAP 기반 백엔드 서비스 운영'
+        '전국 셀러 대상 다수 오픈마켓 주문·상품·송장 통합 관리 솔루션 (WinForms)',
+        '신규 마켓 다수 연동 (고도몰5, ESM 2.0, 위메프, Lotte ON, T-Mon 등)',
+        '클라이언트 동시접속 제한 및 외부 연동용 REST API 신규 구축'
+      ],
+      highlights: [
+        '11번가 주문수집 모듈을 HTML 파싱 → JSON API로 전면 재설계, 사이트 변경 장애 빈도 감소',
+        '카페24 주문 수집을 크롤링 → 공식 Open API로 전환, 차단 리스크 제거 및 정확도 향상',
+        '솔루션 .NET Framework 2.0 → 4.6 업그레이드, async/await 등 신규 기능 활용 환경 마련'
       ],
       stack: {
         main: ['C# (.NET 2.0 / 4.6)', 'MS-SQL'],
-        sub: ['WinForms', 'Infragistics'],
+        sub: ['WinForms', 'Infragistics', 'WCF SOAP'],
         infra: ['Windows Server', 'SQL Server 2012'],
         tools: ['RedMine', 'GitLab', 'Visual Studio']
       }
@@ -123,10 +135,12 @@ export default function Home() {
 
   const skills = [
     { name: 'C# / .NET', level: 95 },
-    { name: '.NET Core 6.0', level: 90 },
+    { name: '.NET Core', level: 90 },
     { name: 'MS-SQL / MySQL', level: 90 },
     { name: 'REST API 설계', level: 92 },
-    { name: 'Redis / RDBMS', level: 80 },
+    { name: 'Redis / 캐싱 전략', level: 82 },
+    { name: 'MSA / 도메인 설계', level: 80 },
+    { name: 'AWS / Docker', level: 72 },
     { name: 'Node.js / TypeScript', level: 65 }
   ];
 
@@ -246,19 +260,20 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-zinc-300 leading-relaxed">
                 <p>
-                  <span className="text-emerald-400">B2B 솔루션</span>과 
-                  {' '}<span className="text-emerald-400">B2C 커머스 서비스</span>를 
-                  모두 경험한 .NET 백엔드 개발자입니다.
+                  <span className="text-emerald-400">대규모 주문 처리 환경</span>에서 
+                  데이터 정합성과 트랜잭션 문제를 구조적으로 해결해온 
+                  7년차 .NET 백엔드 개발자입니다.
                 </p>
                 <p>
-                  판매자 대상 통합 관리 솔루션부터 사용자 대상 커머스 서비스까지,
-                  다양한 도메인의 .NET 기반 시스템을 개발하며
-                  <span className="text-zinc-100"> API 중심 구조</span>와 
-                  <span className="text-zinc-100"> 데이터 정합성</span>을 고려한 설계를 수행해왔습니다.
+                  오픈마켓 통합 솔루션과 버티컬 커머스 플랫폼을 개발·운영하며,
+                  단순 기능 구현을 넘어 
+                  <span className="text-zinc-100"> 장애를 줄이고 데이터 신뢰도를 높이는 구조 개선</span>에 
+                  집중해왔습니다.
                 </p>
                 <p>
-                  대량 처리 작업은 DB 중심으로 분리하고, 서비스는 도메인 단위로 나누어
-                  <span className="text-zinc-100"> 유지보수성과 확장성</span>을 고려한 구조를 지향합니다.
+                  대량 주문의 정합성 보장, Redis 기반 성능 최적화, MSA 도메인 분리까지
+                  <span className="text-zinc-100"> 운영 환경의 안정성과 확장성</span>을 
+                  지속적으로 개선하는 것을 지향합니다.
                 </p>
               </div>
 
@@ -366,7 +381,10 @@ export default function Home() {
                       <h3 className="text-xl font-bold text-zinc-100">{exp.company}</h3>
                       <span className="text-xs text-emerald-400 font-mono">{exp.period}</span>
                     </div>
-                    <p className="text-sm text-zinc-500 mb-4">{exp.role}</p>
+                    <p className="text-sm text-zinc-500 mb-1">{exp.role}</p>
+                    {exp.summary && (
+                      <p className="text-sm text-zinc-400 mb-4">{exp.summary}</p>
+                    )}
 
                     <div className="mb-5">
                       <div className="text-xs text-zinc-500 mb-2">// projects</div>
@@ -379,6 +397,22 @@ export default function Home() {
                         ))}
                       </ul>
                     </div>
+
+                    {exp.highlights && (
+                      <div className="mb-5 rounded-md border border-emerald-400/15 bg-emerald-400/5 p-4">
+                        <div className="text-xs text-emerald-400/80 mb-2 flex items-center gap-1.5">
+                          ★ key impact
+                        </div>
+                        <ul className="space-y-2">
+                          {exp.highlights.map((h, j) => (
+                            <li key={j} className="text-sm text-zinc-300 flex items-start gap-2 leading-relaxed">
+                              <span className="text-emerald-400 mt-0.5 flex-shrink-0">→</span>
+                              <span>{h}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
                     <div className="space-y-3">
                       <div>
