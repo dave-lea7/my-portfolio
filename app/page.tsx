@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles, Target } from 'lucide-react';
+import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles, Target, Wrench } from 'lucide-react';
 
 // GitHub & LinkedIn 아이콘 (lucide-react 최신 버전에서 제거되어 직접 정의)
 const Github = ({ size = 24 }: { size?: number }) => (
@@ -166,6 +166,15 @@ export default function Home() {
       result: ['Rate limit 초과 호출 실패 제거', '데이터 동기화 안정화', '외부 연동 운영 부담 감소']
     },
     {
+      title: '대량 주문 처리 정합성 개선',
+      project: '오픈마켓 통합 · 트랜잭션 설계',
+      tags: ['Transaction', 'Idempotency', 'Retry'],
+      situation: '다수 오픈마켓의 주문을 수집·처리하는 과정에서 대량 주문이 동시에 유입되는 환경',
+      trouble: '트랜잭션 충돌로 중복 처리·상태 불일치·일부 데이터 유실이 발생, 운영 이슈와 고객 불만으로 연결',
+      action: '트랜잭션 범위를 재설계하고 요청 단위의 idempotent 처리와 재시도 로직을 도입해 동시 유입 상황에서도 정합성을 보장하는 구조로 개선',
+      result: ['주문 처리 오류 대폭 감소', '데이터 정합성 보장', '운영 안정성 및 신뢰도 향상']
+    },
+    {
       title: 'MSA 기반 도메인 API 분리 운영',
       project: '감별마켓 · 아키텍처 설계',
       tags: ['MSA', 'Domain Separation', 'Common Library', 'NuGet'],
@@ -191,6 +200,25 @@ export default function Home() {
       trouble: 'HTML 파싱 방식의 주문 수집이 11번가 사이트 구조 변경 시마다 장애 발생, 운영 부담 가중',
       action: 'HTML 파싱 구조를 JSON 기반 API 호출 방식으로 전면 재설계해 사이트 변경에 영향받지 않는 구조로 전환',
       result: ['사이트 구조 변경 장애 빈도 감소', '데이터 파싱 안정성 향상', '운영 유지보수 비용 절감']
+    }
+  ];
+
+  const troubleshooting = [
+    {
+      title: '대량 주문 트랜잭션 충돌 해결',
+      detail: '트랜잭션 범위 재설계 · idempotent 처리 · 재시도 로직 도입'
+    },
+    {
+      title: 'Cafe24 API Rate Limit 안정화',
+      detail: 'Redis + Lua 기반 atomic counter 및 delay 로직 구현'
+    },
+    {
+      title: 'MSA 공통 정책 분리',
+      detail: 'common-service-library 추출 + NuGet 자동 배포 구조 적용'
+    },
+    {
+      title: '장애 감지 자동화',
+      detail: 'API 에러 발생 시 Teams 봇 알림 연동으로 장애 감지 시간 단축'
     }
   ];
 
@@ -529,6 +557,36 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* TROUBLESHOOTING */}
+        <section className="mb-32">
+          <div className="text-zinc-500 text-sm mb-4">
+            <span className="text-emerald-400">$</span> grep -r "resolved" ./logs
+          </div>
+          
+          <h2 className="text-3xl font-bold mb-3 flex items-center gap-3">
+            <Wrench className="text-emerald-400" size={28} />
+            Troubleshooting
+          </h2>
+          <p className="text-zinc-400 mb-8 max-w-2xl text-sm leading-relaxed">
+            운영 중 마주한 다양한 문제를 분석하고 개선한 경험입니다.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {troubleshooting.map((t, i) => (
+              <div 
+                key={i}
+                className="flex items-start gap-3 border border-zinc-800 rounded-lg p-4 bg-zinc-900/30 backdrop-blur-sm hover:border-emerald-400/30 transition-all"
+              >
+                <span className="text-emerald-400 mt-0.5 flex-shrink-0 font-mono text-sm">▹</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-zinc-100 mb-1">{t.title}</h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{t.detail}</p>
                 </div>
               </div>
             ))}
