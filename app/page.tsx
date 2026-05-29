@@ -123,11 +123,12 @@ export default function Home() {
       period: '2023.02 — 2025.09',
       company: '그린앤그레이',
       role: '플랫폼 개발팀 · 사원',
-      summary: '버티컬 커머스 플랫폼 API 서버 및 챗봇 개발·운영',
+      summary: '버티컬 커머스 플랫폼 API 서버 및 챗봇 개발·운영 (AWS · 인프라팀 협업 구조)',
       projects: [
         '감별마켓(대상그룹) — MSA 도메인 API 4종 설계·운영 · 가입자 10만+ / 입점 100개+',
         'Cellook 패션 커머스 — Display / Admin API 개발·운영',
-        '카카오 모빌리티 챗봇 — 8개 채널 시나리오 개발 및 내재화 지원'
+        '카카오 모빌리티 챗봇 — 8개 채널 시나리오 개발 및 내재화 지원',
+        'Jenkins · Argo CD 배포 파이프라인 운영 / Datadog · Elasticsearch 기반 장애 대응'
       ],
       stack: {
         main: ['C# (.NET Core 6.0)', 'MySQL', 'Redis'],
@@ -140,16 +141,18 @@ export default function Home() {
       period: '2016.12 — 2021.07',
       company: '가비아씨엔에스',
       role: 'IMS 개발팀 · 연구원',
-      summary: '판매자 통합관리 솔루션 "주머니" 개발 및 유지보수 (WinForms)',
+      summary: '판매자 통합관리 솔루션 "주머니" — 주문·배송 처리 영역 담당 (WinForms)',
       projects: [
-        '전국 셀러 대상 다수 오픈마켓 주문·상품·송장 통합 관리',
-        '신규 마켓 다수 연동 (고도몰5, ESM 2.0, 위메프, Lotte ON 등)',
-        '클라이언트 동시접속 제한 및 외부 연동용 REST API 신규 구축'
+        '주문 수집·상태 변경·발주 처리 등 핵심 배송 업무 기능 개발',
+        '대량 주문 엑셀 일괄 다운로드 / 송장 일괄 업로드 반영 기능 구현',
+        '신규 마켓 다수 연동 (고도몰5, ESM 2.0, 위메프, Lotte ON, T-Mon 등)',
+        '클라이언트 동시접속 세션 제어 + 외부 연동용 REST API 신규 구축',
+        '배송관리 서버 IDC 직접 이전 (온프레미스 인프라 운영 경험)'
       ],
       stack: {
         main: ['C# (.NET 2.0 / 4.6)', 'MS-SQL'],
         sub: ['WinForms', 'Infragistics', 'WCF SOAP'],
-        infra: ['Windows Server', 'SQL Server 2012'],
+        infra: ['Windows Server', 'IIS', 'SQL Server 2012', '온프레미스'],
         tools: ['RedMine', 'GitLab', 'Visual Studio']
       }
     }
@@ -213,6 +216,14 @@ export default function Home() {
       detail: 'Redis + Lua 기반 atomic counter 및 delay 로직 구현'
     },
     {
+      title: '클라이언트 동시접속 세션 제어',
+      detail: '커넥션 풀에서 접속 계정 관리 · 동일 계정 다른 PC 접속 시 차단 구조'
+    },
+    {
+      title: 'IDC 배송관리 서버 이전',
+      detail: 'Windows / DB / 웹서비스 / 방화벽 사전 설정 → 일요일 야간 무중단 이전 수행'
+    },
+    {
       title: 'MSA 공통 정책 분리',
       detail: 'common-service-library 추출 + NuGet 자동 배포 구조 적용'
     },
@@ -233,7 +244,7 @@ export default function Home() {
     },
     {
       category: 'Infra / DevOps',
-      items: ['AWS', 'Docker', 'Jenkins', 'Argo CD', 'GitHub Actions']
+      items: ['AWS', 'Docker', 'Jenkins', 'Argo CD (GitOps)', 'GitHub Actions', '온프레미스']
     },
     {
       category: 'Monitoring',
@@ -396,20 +407,22 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-zinc-300 leading-relaxed">
                 <p>
-                  <span className="text-emerald-400">대규모 주문 처리 환경</span>에서 
-                  데이터 정합성과 트랜잭션 문제를 구조적으로 해결해온 
-                  7년차 .NET 백엔드 개발자입니다.
+                  오픈마켓 통합 솔루션과 버티컬 커머스 플랫폼을 개발·운영하며 
+                  <span className="text-emerald-400"> 대규모 주문 처리</span>, 
+                  <span className="text-emerald-400"> 데이터 정합성</span>, 
+                  <span className="text-emerald-400"> 성능 최적화</span>, 
+                  <span className="text-emerald-400"> 서비스 구조 개선</span>을 
+                  수행해온 7년차 .NET 백엔드 개발자입니다.
                 </p>
                 <p>
-                  오픈마켓 통합 솔루션과 버티컬 커머스 플랫폼을 개발·운영하며,
-                  단순 기능 구현을 넘어 
-                  <span className="text-zinc-100"> 장애를 줄이고 데이터 신뢰도를 높이는 구조 개선</span>에 
-                  집중해왔습니다.
+                  커머스 도메인에서 발생하는 운영 이슈를 해결하며
+                  <span className="text-zinc-100"> 서비스 안정성과 데이터 신뢰성</span>을 
+                  높여왔습니다.
                 </p>
                 <p>
-                  대량 주문의 정합성 보장, Redis 기반 성능 최적화, MSA 도메인 분리까지
-                  <span className="text-zinc-100"> 운영 환경의 안정성과 확장성</span>을 
-                  지속적으로 개선하는 것을 지향합니다.
+                  단순 기능 구현에 그치지 않고 운영 환경에서 발생하는
+                  <span className="text-zinc-100"> 트랜잭션 충돌, 외부 API 제약, 성능 병목, 서비스 간 결합도 문제</span>를 
+                  해결하며 안정적이고 확장 가능한 시스템을 설계하는 데 집중해왔습니다.
                 </p>
               </div>
 
