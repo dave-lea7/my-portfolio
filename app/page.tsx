@@ -166,7 +166,7 @@ export default function Home() {
       tags: ['Redis', 'Lua Script', 'Atomic Counter'],
       situation: '입점 마켓 100여 개 상품을 카페24 기반으로 연동하는 구조로 전환',
       trouble: 'API 호출량이 카페24 limit 정책에 근접해 호출 실패 발생, 데이터 동기화 지연',
-      action: 'Redis + Lua 스크립트로 atomic 호출 카운터와 delay 로직을 구현해 분산 환경에서도 원자적으로 호출량 제어',
+      action: 'Redis Lua 스크립트를 활용해 호출 카운터와 지연 처리 로직을 하나의 작업으로 실행되도록 구현',
       result: ['Rate limit 초과 호출 실패 제거', '데이터 동기화 안정화', '외부 연동 운영 부담 감소']
     },
     {
@@ -194,7 +194,7 @@ export default function Home() {
       situation: '대량 트래픽 환경에서 추천 상품 조회와 사용자 인증이 빈번하게 발생',
       trouble: '추천 상품·인증 토큰 조회가 매번 DB를 거치며 응답 지연과 DB 부하 유발',
       action: '추천 상품 데이터와 인증 토큰(access/refresh)에 Redis 캐싱을 도입하고, 찜·연령·관심분야 기반 개인화 추천 로직과 결합',
-      result: ['핵심 조회 API 응답 속도 개선', 'DB 부하 감소', '개인화 추천으로 사용자 전환율 향상']
+      result: ['핵심 조회 API 응답 속도 개선', 'DB 부하 감소', '개인화 추천 기반 마련']
     },
     {
       title: '11번가 주문수집 모듈 재설계',
@@ -203,7 +203,7 @@ export default function Home() {
       situation: '다수 오픈마켓 주문을 수집·통합 관리하는 솔루션 운영',
       trouble: 'HTML 파싱 방식의 주문 수집이 11번가 사이트 구조 변경 시마다 장애 발생, 운영 부담 가중',
       action: 'HTML 파싱 구조를 JSON 기반 API 호출 방식으로 전면 재설계해 사이트 변경에 영향받지 않는 구조로 전환',
-      result: ['사이트 구조 변경 장애 빈도 감소', '데이터 파싱 안정성 향상', '운영 유지보수 비용 절감']
+      result: ['사이트 구조 변경 장애 빈도 감소', '데이터 파싱 안정성 향상', '운영 유지보수 부담 감소']
     }
   ];
 
@@ -214,19 +214,19 @@ export default function Home() {
     },
     {
       title: 'Cafe24 API Rate Limit 안정화',
-      detail: 'Redis + Lua 기반 atomic counter 및 delay 로직 구현'
+      detail: 'Redis Lua 스크립트로 원자적 호출 카운터와 지연 처리 로직 구현'
     },
     {
-      title: '클라이언트 동시접속 세션 제어',
-      detail: '커넥션 풀에서 접속 계정 관리 · 동일 계정 다른 PC 접속 시 차단 구조'
+      title: 'Read / Write DB 분리',
+      detail: '조회·쓰기 경로 분리 및 즉시성 데이터 기준으로 정합성 고려'
     },
     {
       title: 'IDC 배송관리 서버 이전',
-      detail: 'Windows / DB / 웹서비스 / 방화벽 사전 설정 → 일요일 야간 무중단 이전 수행'
+      detail: 'Windows / DB / 웹서비스 / 방화벽 사전 설정 → 주말 야간 무중단 이전 수행'
     },
     {
-      title: 'MSA 공통 정책 분리',
-      detail: 'common-service-library 추출 + NuGet 자동 배포 구조 적용'
+      title: '동일 계정 중복 접속 제어',
+      detail: '서버 기반 세션 관리로 다중 로그인 차단 구조 구현'
     },
     {
       title: '장애 감지 자동화',
