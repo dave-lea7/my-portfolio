@@ -490,6 +490,10 @@ export default function Home() {
                   <span className="text-zinc-300">Datadog</span>
                 </div>
                 <div className="flex justify-between pt-2 mt-2 border-t border-zinc-800">
+                  <span className="text-zinc-500">focus</span>
+                  <span className="text-emerald-400">production stability</span>
+                </div>
+                <div className="flex justify-between pt-2 mt-2 border-t border-zinc-800">
                   <span className="text-zinc-500">coffee</span>
                   <span className="text-emerald-400">∞ cups/day</span>
                 </div>
