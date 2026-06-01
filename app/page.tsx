@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles, Target, Wrench } from 'lucide-react';
+import { Mail, Code2, Terminal, Cpu, ArrowUpRight, Briefcase, Database, Server, Sparkles, Target, Wrench, FileText, FileCode } from 'lucide-react';
 
 // GitHub & LinkedIn 아이콘 (lucide-react 최신 버전에서 제거되어 직접 정의)
 const Github = ({ size = 24 }: { size?: number }) => (
@@ -25,7 +25,8 @@ const CONFIG = {
   githubLabel: 'github.com/dave-lea7',
   linkedin: '', // 링크드인 URL을 여기에 넣으세요. 비워두면 자동으로 숨겨집니다.
   linkedinLabel: 'linkedin',
-  resume: '',  // 이력서 PDF URL (Netlify 배포 후 추가). 비워두면 버튼이 숨겨집니다.
+  resumePdf: '/resume.pdf',  // public/resume.pdf 위치에 파일을 넣으세요. 비워두면 PDF 버튼이 숨겨집니다.
+  resumeMd: 'https://github.com/dave-lea7/career-history',              // 경력기술서 MD GitHub URL. 비워두면 MD 버튼이 숨겨집니다.
 };
 // =========================================================
 
@@ -381,6 +382,28 @@ export default function Home() {
               연락하기
               <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
+            {CONFIG.resumePdf && (
+              <a 
+                href={CONFIG.resumePdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 border border-zinc-700 text-zinc-300 text-sm rounded hover:border-emerald-400 hover:text-emerald-400 transition-all flex items-center gap-2"
+              >
+                <FileText size={14} />
+                경력기술서 (PDF)
+              </a>
+            )}
+            {CONFIG.resumeMd && (
+              <a 
+                href={CONFIG.resumeMd}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 border border-zinc-700 text-zinc-300 text-sm rounded hover:border-emerald-400 hover:text-emerald-400 transition-all flex items-center gap-2"
+              >
+                <FileCode size={14} />
+                경력기술서 (MD)
+              </a>
+            )}
             <a 
               href={CONFIG.github}
               target="_blank"
@@ -772,6 +795,28 @@ export default function Home() {
                 >
                   <Linkedin size={18} />
                   <span className="border-b border-zinc-700 group-hover:border-emerald-400">{CONFIG.linkedinLabel}</span>
+                </a>
+              )}
+              {CONFIG.resumePdf && (
+                <a 
+                  href={CONFIG.resumePdf}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors"
+                >
+                  <FileText size={18} />
+                  <span className="border-b border-zinc-700 group-hover:border-emerald-400">경력기술서 (PDF)</span>
+                </a>
+              )}
+              {CONFIG.resumeMd && (
+                <a 
+                  href={CONFIG.resumeMd}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 text-zinc-300 hover:text-emerald-400 transition-colors"
+                >
+                  <FileCode size={18} />
+                  <span className="border-b border-zinc-700 group-hover:border-emerald-400">경력기술서 (MD)</span>
                 </a>
               )}
             </div>
